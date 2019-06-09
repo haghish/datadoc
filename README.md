@@ -1,4 +1,4 @@
-_v. 1.5_  
+_v. 1.0_  
 
 `datadoc` : automatic data documentation help file generator
 ============================================================

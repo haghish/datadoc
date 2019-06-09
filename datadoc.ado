@@ -66,13 +66,13 @@ program define datadoc
 	if "`c(filedate)'" == "" {
 	  di as err "no data is loaded in the memory, an empty template is generated called {bf:example.do}"
 		local name "example"
-	  local script example.do
+	  local script example.md
 	}
 	else {
 		qui abspath "`c(filename)'"
     local name "`r(fname)'"
     local name : subinstr local name ".dta" ""
-	  local script `name'.do
+	  local script `name'.md
 	}
 
 	
@@ -190,11 +190,21 @@ program define datadoc
 	capture copy "`tmp'" "`script'", replace public
 	
 	confirm file "`script'"
-	qui sthlp `script', export(sthlp) `replace'
 	
+	cap findfile sthlp.ado
 	if _rc == 0 {
-		di as txt "{p}(MarkDoc created "`"{bf:{browse "`script'"}} and {bf:{browse "`name'.sthlp"}})"' 
+		qui sthlp `script', export(sthlp) `replace'
+	
+		if _rc == 0 {
+			di as txt "{p}(MarkDoc created "`"{bf:{browse "`script'"}} and {bf:{browse "`name'.sthlp"}})"' 
+		}
 	}
+	else {
+	  di as txt "{p}(datadoc created "`"{bf:{browse "`script'"}})"' _n
+	  di as err `"install {browse "https://github.com/haghish/markdoc":markdoc} package to generate the Stata help file from the .md file"'
+	}
+	
+	
 
 		
 end

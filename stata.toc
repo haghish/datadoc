@@ -1,0 +1,8 @@
+v 1.5
+d Materials by E. F. Haghish
+d University of Goettingen
+d haghish@med.uni-goettingen.de
+
+d 'datadoc': datadoc generate a documentation template for the data  that is currently loaded in Stata
+
+p datadoc

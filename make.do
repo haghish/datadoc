@@ -3,7 +3,7 @@
 // DO NOT FORGET to update the version of the package, if changed!
 // for more information visit http://github.com/haghish/github
 
-make datadoc, replace toc pkg  version(1.5) readme                           ///
+make datadoc, replace toc pkg  version(1.0) readme                           ///
      license("MIT")                                                          ///
      author("E. F. Haghish")                                                 ///
      affiliation("University of Goettingen")                                 ///

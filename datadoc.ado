@@ -1,5 +1,5 @@
 /***
-_v. 1.0.1_
+_v. 1.1_
 
 datadoc
 =======
@@ -13,9 +13,7 @@ Syntax
 
 ### Options
 
-| Option       | Description                                        |
-|--------------|----------------------------------------------------|
-| _replace_    | replaces the existing file                         |
+- _replace_ option replaces the existing file                         |
 
 Description
 -----------
@@ -94,14 +92,18 @@ program define datadoc
 	
 	local len = length("`dataname'") + 8
 	
+	// get the label of the data
+	qui describe
+	local datalabel "`r(datalabel)'"
+	
 	file write `knot' 														          ///
 		"/***" _n 																            ///
-		"__dataset from the XXX package_ " _n(2)              ///
-		"`dataname' dataset" _n                               ///
+		"`dataname'" _n                                       ///
 		_dup(`len') "=" _n(2)                                 ///
+		"`r(datalabel)' ... included in XXX package" _n(2) ///
 		"Description" _n                                      ///
 		"----------- " _n(2)                                  ///
-		"The __`dataname'__ dataset is about ..." _n(2)       ///
+		"The __`dataname'__ dataset is about ... " _n(2)       ///
 		"Format" _n                                           ///
 		"------ " _n(2)                              ///
 		"__`dataname'__ data set includes _`nobs'_ observations and _`nvar'_ variables." _n(2) /// 
@@ -117,12 +119,16 @@ program define datadoc
 	else {
 		// 15 character for varname, 5 character for type, 60 for description
 		
-		// get the longest label
+		// get the longest label and check for notes
 		local maxlength 0
 		foreach var of varlist _all {
 			local lab: variable label `var'
 			local lablen = length("`lab'")
 			if `lablen' > `maxlength' local maxlength `lablen'
+			if "``var'[note1]'" != "" local varnotes 1    // define varnotes
+			if "``var'[note2]'" != "" {
+			  local secondnote 1    // define varnotes
+			}
 		}
 		
 		file write `knot'                                     ///
@@ -177,6 +183,56 @@ program define datadoc
 		file write `knot' _n
 	}
 	
+	file write `knot' 														          ///
+		"Notes" _n                                            ///
+		"------ " _n(2)                                       ///
+		"### Dataset" _n(2)
+	
+	if "`_dta[note1]'" != "" {
+	  local notenum 1
+		while "`_dta[note`notenum']'" != "" {
+		  file write `knot' "`notenum'. `_dta[note`notenum']'"
+			local notenum = `notenum'+1
+		}
+	}
+	else {
+	  file write `knot' "The dataset doesn't include any note"
+	}
+	file write `knot' _n(2)
+	
+	// variable notes
+	file write `knot' _n "### Variables" _n(2)
+	
+	if missing("`varnotes'") file write `knot' "The variables don't include any note" _n(2)
+	else {
+	  if !missing("`secondnote'") {
+		  foreach var of varlist _all {
+				if "``var'[note1]'" != "" {
+					file write `knot' "#### `var'" _n(2)
+					local notenum 1
+					while "``var'[note`notenum']'" != "" {
+						file write `knot' "`notenum'. ``var'[note`notenum']'" _n
+						local notenum = `notenum'+1
+					}
+					file write `knot'  _n(2)
+				}
+			}
+		}
+	  else {
+		  file write `knot'                                     ///
+		  "| _Variable_   |  _Note_                                    |" _n ///
+		  "|:-------------|:-------------------------------------------|" _n 
+			foreach var of varlist _all {
+			  if "``var'[note1]'" != "" {
+				  local varname = abbrev("`var'",12) 
+					local varnote = substr("``var'[note1]'",1,43)  
+					file write `knot' "| `varname'" _col(16) "| `varnote'" _col(60) " |" _n
+				}
+			}
+			file write `knot' _n
+		}
+	}
+		
 	file write `knot' 														          ///
 		"Source" _n                                           ///
 		"--------------- " _n(2)                              ///

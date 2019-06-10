@@ -1,5 +1,5 @@
 {smcl}
-{it:v. 1.0.1}
+{it:v. 1.1}
 
 
 {title:datadoc}
@@ -14,10 +14,8 @@ generates data documentation template based on CRAN{c 39}s layout.
 
 {p 4 4 2}{bf:Options}
 
-{col 5}Option{col 19}Description
-{space 4}{hline 66}
-{col 5}{it:replace}{col 19}replaces the existing file
-{space 4}{hline 66}
+{break}    - {it:replace} option replaces the existing file                         |
+
 
 {title:Description}
 

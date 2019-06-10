@@ -25,10 +25,31 @@ If not, a template is generated.
 Example
 -------
 
+generate _example.md_ documentation layout to be filled manually
+
+        . clear
+        . datadoc 
+
 generate a data documentation template for __auto.dta__
 
-     . sysuse auto, clear
-     . datadoc 
+        . sysuse auto, clear
+        . datadoc 
+
+add notes to the dataset and variables
+        
+        . sysuse auto, clear
+        . notes : this data set is included in Stata 15
+        . notes : for more information see github.com/haghish/datadoc
+        . notes price: this is the price of the car
+        . notes make: add information about the make variable
+        . notes weight: explain ... 
+        . datadoc, replace
+
+if a variable includes more than one note, __datadoc__ will present the 
+informattion in a different format:
+
+        . notes price: this is the second note of the price variable
+        . datadoc, replace
 
 Author
 ------
@@ -95,6 +116,7 @@ program define datadoc
 	// get the label of the data
 	qui describe
 	local datalabel "`r(datalabel)'"
+	if "`datalabel'" == "" local datalabel "label of the dataset"
 	
 	file write `knot' 														          ///
 		"/***" _n 																            ///
@@ -185,7 +207,7 @@ program define datadoc
 	
 	file write `knot' 														          ///
 		"Notes" _n                                            ///
-		"------ " _n(2)                                       ///
+		"----- " _n(2)                                       ///
 		"### Dataset" _n(2)
 	
 	if "`_dta[note1]'" != "" {
@@ -235,10 +257,10 @@ program define datadoc
 		
 	file write `knot' 														          ///
 		"Source" _n                                           ///
-		"--------------- " _n(2)                              ///
+		"------ " _n(2)                              ///
 		"cite the source ..." _n(2)                           ///
 		"References" _n                                       ///
-		"--------------- " _n(2)                              ///
+		"---------- " _n(2)                              ///
 		"cite the references ..." _n                          ///
 		"***/" _n(2)
 		

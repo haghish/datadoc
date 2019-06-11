@@ -1,9 +1,9 @@
-v 1.1
+v 1.2
 d 'DATADOC': automatic data documentation help file generator
 d 
 d datadoc generate a documentation template for the data  that is currently loaded in Stata
 d 
-d Distribution-Date:   20190610
+d Distribution-Date:   20190611
 d License: MIT
 d 
 F datadoc.ado

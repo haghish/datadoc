@@ -1,5 +1,5 @@
 /***
-_v. 1.1_
+_v. 1.2_
 
 datadoc
 =======
@@ -75,7 +75,7 @@ This help file was dynamically produced by
 *cap prog drop datadoc
 program define datadoc
 
-	version 14
+	version 15
 	
 	syntax [anything]					/// 
 	[, 				 ///
@@ -122,7 +122,7 @@ program define datadoc
 		"/***" _n 																            ///
 		"`dataname'" _n                                       ///
 		_dup(`len') "=" _n(2)                                 ///
-		"`r(datalabel)' ... included in XXX package" _n(2) ///
+		"`datalabel' ... included in XXX package" _n(2)       ///
 		"Description" _n                                      ///
 		"----------- " _n(2)                                  ///
 		"The __`dataname'__ dataset is about ... " _n(2)       ///
@@ -213,14 +213,14 @@ program define datadoc
 	if "`_dta[note1]'" != "" {
 	  local notenum 1
 		while "`_dta[note`notenum']'" != "" {
-		  file write `knot' "`notenum'. `_dta[note`notenum']'"
+		  file write `knot' "`notenum'. `_dta[note`notenum']'" _n
 			local notenum = `notenum'+1
 		}
 	}
 	else {
-	  file write `knot' "The dataset doesn't include any note"
+	  file write `knot' "The dataset doesn't include any note" _n
 	}
-	file write `knot' _n(2)
+	file write `knot' _n
 	
 	// variable notes
 	file write `knot' _n "### Variables" _n(2)

@@ -82,7 +82,7 @@ program define datadoc
 	replace 	 	 /// replaces the current sthlp file, if it already exists
 	]
 	
-	if "`c(filedate)'" == "" {
+	if "`c(filename)'" == "" {
 	  di as err "no data is loaded in the memory, an empty template is generated called {bf:example.do}"
 		local name "example"
 	  local script example.md

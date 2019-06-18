@@ -1,5 +1,5 @@
 /***
-_v. 1.2_
+_v. 1.3_
 
 datadoc
 =======
@@ -131,7 +131,7 @@ program define datadoc
 		"__`dataname'__ data set includes _`nobs'_ observations and _`nvar'_ variables." _n(2) /// 
 		"### Summary of the variables" _n(2)                     
 		
-	if "`c(filedate)'" == "" {
+	if "`c(filename)'" == "" {
 		file write `knot'                                     ///
 		"| _Variable_  |  _Type_  | _Description_          |" _n ///
 		"|:------------|:---------|:-----------------------|" _n ///

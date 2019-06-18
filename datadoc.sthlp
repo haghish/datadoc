@@ -1,5 +1,5 @@
 {smcl}
-{it:v. 1.2}
+{it:v. 1.3}
 
 
 {title:datadoc}

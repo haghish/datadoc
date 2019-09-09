@@ -18,7 +18,7 @@ Syntax
 Description
 -----------
 
-the output oncludes a markdown file and a stata help file. 
+the output oncludes a do-file documentation and its Stata help file. 
 the command requires a data to be loaded in the memory. 
 If not, a template is generated. 
 
@@ -85,13 +85,13 @@ program define datadoc
 	if "`c(filename)'" == "" {
 	  di as err "no data is loaded in the memory, an empty template is generated called {bf:example.do}"
 		local name "example"
-	  local script example.md
+	  local script example.do
 	}
 	else {
 		qui abspath "`c(filename)'"
     local name "`r(fname)'"
     local name : subinstr local name ".dta" ""
-	  local script `name'.md
+	  local script `name'.do
 	}
 
 	
@@ -154,7 +154,7 @@ program define datadoc
 		}
 		
 		file write `knot'                                     ///
-		"| Variable      | Type | Description "                                             
+		"| Variable      | Type   | Description "                                             
 		
 		if `maxlength' > 58 {
 			file write `knot' _dup(45) " " "|" _n
@@ -168,7 +168,7 @@ program define datadoc
 		}
 		
 		
-		file write `knot' "|:--------------|:-----|:" 
+		file write `knot' "|:--------------|:-------|:" 
 		
 		if `maxlength' > 58 {
 			file write `knot' "---------------------------------------------------------|" _n 
@@ -186,11 +186,11 @@ program define datadoc
 			local vartype: type `var'
 			local lab: variable label `var'
 			local lab = substr("`lab'",1,57) 
-			if substr("`vartype'",1,3)=="str" local vartype "str"
-			else if substr("`vartype'",1,5)=="float" local vartype "flt"
-			else if substr("`vartype'",1,4)=="byte" local vartype "byt"
+			//if substr("`vartype'",1,3)=="str" local vartype "str"
+			//else if substr("`vartype'",1,5)=="float" local vartype "flt"
+			//else if substr("`vartype'",1,4)=="byte" local vartype "byt"
 			local varname = abbrev("`var'",12) 
-			file write `knot' "| `varname'" _col(16) " | `vartype'" _col(23) " | `lab'" //_col(83) "|" _n
+			file write `knot' "| `varname'" _col(16) " | `vartype'" _col(25) " | `lab'" //_col(83) "|" _n
 			if `maxlength' > 58 {
 				file write `knot' _col(83) "|" _n
 			}
@@ -279,7 +279,7 @@ program define datadoc
 	}
 	else {
 	  di as txt "{p}(datadoc created "`"{bf:{browse "`script'"}})"' _n
-	  di as err `"install {browse "https://github.com/haghish/markdoc":markdoc} package to generate the Stata help file from the .md file"'
+	  di as err `"install {browse "https://github.com/haghish/markdoc":markdoc} package to generate the Stata help file from a script file"'
 	}
 	
 	

@@ -20,7 +20,7 @@ generates data documentation template based on CRAN{c 39}s layout.
 {title:Description}
 
 {p 4 4 2}
-the output oncludes a do-file documentation and its Stata help file. 
+the output includes a do-file documentation and its Stata help file. 
 the command requires a data to be loaded in the memory. 
 If not, a template is generated. 
 

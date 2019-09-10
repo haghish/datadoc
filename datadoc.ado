@@ -18,7 +18,7 @@ Syntax
 Description
 -----------
 
-the output oncludes a do-file documentation and its Stata help file. 
+the output includes a do-file documentation and its Stata help file. 
 the command requires a data to be loaded in the memory. 
 If not, a template is generated. 
 

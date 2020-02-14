@@ -38,7 +38,7 @@ generate a data documentation template for __auto.dta__
 add notes to the dataset and variables
         
         . sysuse auto, clear
-        . notes : this data set is included in Stata 15
+        . notes : this dataset is included in Stata 15
         . notes : for more information see github.com/haghish/datadoc
         . notes price: this is the price of the car
         . notes make: add information about the make variable
@@ -128,7 +128,7 @@ program define datadoc
 		"The __`dataname'__ dataset is about ... " _n(2)       ///
 		"Format" _n                                           ///
 		"------ " _n(2)                              ///
-		"__`dataname'__ data set includes _`nobs'_ observations and _`nvar'_ variables." _n(2) /// 
+		"__`dataname'__ dataset includes _`nobs'_ observations and _`nvar'_ variables." _n(2) /// 
 		"### Summary of the variables" _n(2)                     
 		
 	if "`c(filename)'" == "" {
@@ -258,10 +258,10 @@ program define datadoc
 	file write `knot' 														          ///
 		"Source" _n                                           ///
 		"------ " _n(2)                              ///
-		"cite the source ..." _n(2)                           ///
+		"Cite the source ..." _n(2)                           ///
 		"References" _n                                       ///
 		"---------- " _n(2)                              ///
-		"cite the references ..." _n                          ///
+		"Cite the references ..." _n                          ///
 		"***/" _n(2)
 		
 	file close `knot'

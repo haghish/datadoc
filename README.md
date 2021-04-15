@@ -3,6 +3,15 @@ _v. 1.0_
 `datadoc` : automatic data documentation help file generator
 ============================================================
 
+Installation
+------------
+
+The [__`github package`__](https://github.com/haghish/github) is the only recommended way for installing **`datadoc`**. Once [__`github`__](https://github.com/haghish/github) is installed, type:
+
+```js
+github install haghish/datadoc, stable
+```
+
 Description
 -----------
 
